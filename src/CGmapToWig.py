@@ -49,7 +49,7 @@ variableStep chrom=chr1
 
 import gzip
 
-def CGmapToWig (CGmap_fn, WIG_fn, coverage=1, base=0):
+def CGmapToWig (CGmap_fn, WIG_fn, sign, coverage=1, base=0):
     base = float(base)
     coverage = int(coverage)
     try:
@@ -97,7 +97,10 @@ def CGmapToWig (CGmap_fn, WIG_fn, coverage=1, base=0):
             if nuc == "C" :
                 WIG.write("%s\t%.2f\n" % (pos, methyl) )
             elif nuc == "G":
-                WIG.write("%s\t-%.2f\n" % (pos, methyl) ) # Negative value for Minus strand
+                if sign:
+                    WIG.write("%s\t-%.2f\n" % (pos, methyl) ) # Negative value for Minus strand
+                else:
+                    WIG.write("%s\t%.2f\n" % (pos, methyl) ) # positive value for Minus strand
             #
         #
         line = CGmap.readline()
@@ -134,10 +137,12 @@ def main():
     parser.add_option("-b", dest="base", default=0,
                       help="The base for adding to distinguish '0' and 'Nan' [default: %default]",
                       metavar="FLOAT")
+    parser.add_option("-s", dest="sign", default=True,
+                      help="Signed value (negative value for minus strand)' [default: %default]")
     #
     (options, args) = parser.parse_args()
     #
-    CGmapToWig(options.CGmap, options.WIG, options.coverage, options.base )
+    CGmapToWig(options.CGmap, options.WIG, options.coverage, options.base, options.sign)
     #
 #
 # ===========================================
