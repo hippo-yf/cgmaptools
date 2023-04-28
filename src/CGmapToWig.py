@@ -52,8 +52,7 @@ import gzip
 def CGmapToWig (CGmap_fn, WIG_fn, sign, coverage=1, base=0):
     base = float(base)
     coverage = int(coverage)
-    sign = bool(sign)
-    
+
     try:
         if CGmap_fn :
             if CGmap_fn.endswith(".gz") :
@@ -99,7 +98,7 @@ def CGmapToWig (CGmap_fn, WIG_fn, sign, coverage=1, base=0):
             if nuc == "C" :
                 WIG.write("%s\t%.2f\n" % (pos, methyl) )
             elif nuc == "G":
-                if sign:
+                if sign.lower() == "true":
                     WIG.write("%s\t-%.2f\n" % (pos, methyl) ) # Negative value for Minus strand
                 else:
                     WIG.write("%s\t%.2f\n" % (pos, methyl) ) # positive value for Minus strand
