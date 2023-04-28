@@ -142,7 +142,7 @@ def main():
     #
     (options, args) = parser.parse_args()
     #
-    CGmapToWig(options.CGmap, options.WIG, options.coverage, options.base, options.sign)
+    CGmapToWig(options.CGmap, options.WIG, options.sign, options.coverage, options.base)
     #
 #
 # ===========================================
