@@ -52,6 +52,8 @@ import gzip
 def CGmapToWig (CGmap_fn, WIG_fn, sign, coverage=1, base=0):
     base = float(base)
     coverage = int(coverage)
+    sign = bool(sign)
+    
     try:
         if CGmap_fn :
             if CGmap_fn.endswith(".gz") :
